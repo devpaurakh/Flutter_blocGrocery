@@ -16,12 +16,12 @@ class ProductTile extends StatelessWidget {
         categoryName: productDataModel.catagory,
         productName: productDataModel.name,
         price: productDataModel.price,
-        currency: '\$', // Default is '$'
+        currency: 'Rs ', // Default is '$'
         onTap: () {
           // Handle card tap event
         },
         onFavoritePressed: () {
-          // Handle favorite button press
+          
         },
         rating: 4.2, // Optional rating
         discountPercentage: 35.0, // Optional discount percentage

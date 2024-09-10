@@ -35,6 +35,18 @@ class _HomePageState extends State<HomePage> {
         } else if (state is HomeNavigateToWishlistPageActionState) {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const WishListPage()));
+        } else if (state is HomeProductItemWishlisted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Producted Added to the Wishlist"),
+            ),
+          );
+        } else if (state is HomeProductItemCartlisted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Producted Added to the cart"),
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -46,7 +58,7 @@ class _HomePageState extends State<HomePage> {
             ));
 
           case HomeLoadedSuccessState:
-          final successState = state as HomeLoadedSuccessState;
+            final successState = state as HomeLoadedSuccessState;
             return Scaffold(
               backgroundColor: Colors.white,
               appBar: AppBar(
@@ -69,10 +81,13 @@ class _HomePageState extends State<HomePage> {
                 backgroundColor: Colors.grey[200],
               ),
               body: ListView.builder(
-                itemCount: successState.products.length,
-                itemBuilder: (context, index){
-                return ProductTile(productDataModel: successState.products[index]);
-              }),
+                  itemCount: successState.products.length,
+                  itemBuilder: (context, index) {
+                    return ProductTile(
+                      productDataModel: successState.products[index],
+                      homeBlocBloc: homeBlocBloc,
+                    );
+                  }),
             );
 
           case HomeErrorState:
